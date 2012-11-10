@@ -24,12 +24,16 @@ and the expected frequency.
 ## Example
 
 Using data from the [USDA](http://sourceforge.net/projects/usdanutr/), you can
-do cool stuff like this:
+run queries like this:
 
-    SELECT Tagname, ROUND(BENF_MAX(Nutr_Val), 2) AS Max
-    FROM NUT_DATA JOIN NUTR_DEF ON NUT_DATA.Nutr_No = NUTR_DEF.Nutr_No
-    GROUP BY NUT_DATA.Nutr_No HAVING COUNT(*) >= 1000
-    ORDER BY BENF_MAX(Nutr_Val) DESC LIMIT 10;
+```mysql
+SELECT Tagname, ROUND(BENF_MAX(Nutr_Val), 2) AS Max
+FROM NUT_DATA JOIN NUTR_DEF ON NUT_DATA.Nutr_No = NUTR_DEF.Nutr_No
+GROUP BY NUT_DATA.Nutr_No HAVING COUNT(*) >= 1000
+ORDER BY BENF_MAX(Nutr_Val) DESC LIMIT 10;
+```
+
+In order to produce these results:
 
     +---------+------+
     | Tagname | Max  |
@@ -51,14 +55,17 @@ do cool stuff like this:
 Installing the plugin means building the shared object and copying it to MySQL's
 plugin directory. In Linux:
 
-    mkdir build && cd build
-    cmake .. && make
-    cp benford.so /usr/lib/mysql/plugin
+```bash
+mkdir build && cd build
+cmake .. && make
+cp benford.so /usr/lib/mysql/plugin
+```
 
 In order to use the plugin, you must first register the functions with MySQL by
 issuing the following commands:
 
-    CREATE AGGREGATE FUNCTION BENF_CHISQ RETURNS INTEGER SONAME 'benford.so';
-    CREATE AGGREGATE FUNCTION BENF_MSTAR RETURNS INTEGER SONAME 'benford.so';
-    CREATE AGGREGATE FUNCTION BENF_MAX   RETURNS REAL    SONAME 'benford.so';
-
+```mysql    
+CREATE AGGREGATE FUNCTION BENF_CHISQ RETURNS INTEGER SONAME 'benford.so';
+CREATE AGGREGATE FUNCTION BENF_MSTAR RETURNS INTEGER SONAME 'benford.so';
+CREATE AGGREGATE FUNCTION BENF_MAX   RETURNS REAL    SONAME 'benford.so';
+```
