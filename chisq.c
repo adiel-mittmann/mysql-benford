@@ -1,26 +1,26 @@
 #include "common.h"
 
-my_bool benf_chisq_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
+my_bool BENF_CHISQ_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
 {
   return common_init(initid, args, message);
 }
 
-void benf_chisq_deinit(UDF_INIT *initid)
+void BENF_CHISQ_deinit(UDF_INIT *initid)
 {
   common_deinit(initid);
 }
 
-void benf_chisq_clear(UDF_INIT *initid, char *chisq_null, char *error)
+void BENF_CHISQ_clear(UDF_INIT *initid, char *chisq_null, char *error)
 {
   common_clear(initid, chisq_null, error);
 }
 
-void benf_chisq_add(UDF_INIT *initid, UDF_ARGS *args, char *chisq_null, char *error)
+void BENF_CHISQ_add(UDF_INIT *initid, UDF_ARGS *args, char *chisq_null, char *error)
 {
   common_add(initid, args, chisq_null, error);
 }
 
-long long benf_chisq(UDF_INIT *initid, UDF_ARGS *args, char *chisq_null, char *error)
+long long BENF_CHISQ(UDF_INIT *initid, UDF_ARGS *args, char *chisq_null, char *error)
 {
   benford_data *data = (benford_data *)initid->ptr;
   finish(data);
